@@ -20,7 +20,8 @@ export default function Layout() {
     return (
       <View 
         style={
-          styles.container}
+          styles.container
+        }
         >
         <Slot />
       </View>
