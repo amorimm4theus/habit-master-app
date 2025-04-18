@@ -28,7 +28,7 @@ export default function TabLayout() {
       }}
       />
       <Tabs.Screen
-      name="(tabs)/home/_registerSip/index"
+      name="(tabs)/home/registerSip/index"
       options={{  
         title: 'Home',
         href: null,
