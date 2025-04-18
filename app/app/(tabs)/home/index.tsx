@@ -1,8 +1,11 @@
 import { View, Text, Pressable } from 'react-native';
 import * as Progress from 'react-native-progress';
 import styles from '../../../styles/home';
+import { useRouter } from 'expo-router';
 
 export default function Home() {
+  const router = useRouter();
+
   const metaDiaria = 2000;
   const quantidadeBebida = 1500;
   const progresso = quantidadeBebida / metaDiaria;
@@ -30,7 +33,9 @@ export default function Home() {
         <Text style={styles.metaTexto}>de {metaDiaria}ml</Text>
       </View>
 
-      <Pressable style={styles.button}>
+      <Pressable style={styles.button}
+        onPress={() => router.push('/app/(tabs)/home/registerSip')}
+      >
         <Text style={styles.buttonText}>Registrar gole</Text>
       </Pressable>
     </View>
