@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 
@@ -8,12 +8,14 @@ export default function RegisterSip() {
 
   const handleRegister = () => {
     if (!inputValue || isNaN(Number(inputValue))) {
-      alert('Por favor, insira um valor válido.');
+      Alert.alert('Por favor, insira um valor válido.');
       return;
     }
-    // Aqui você pode adicionar lógica para salvar o valor registrado
-    alert(`Você registrou ${inputValue}ml!`);
-    router.push('/app/(tabs)/home'); // Voltar para a tela Home
+
+    /* dps salvar na api */
+    
+    Alert.alert(`Parabéns`,`Você registrou ${inputValue}ml!`);
+    router.push('/app/(tabs)/home'); 
   };
 
   return (
