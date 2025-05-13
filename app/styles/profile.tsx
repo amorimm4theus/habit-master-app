@@ -49,13 +49,18 @@ export default StyleSheet.create({
     backgroundColor: '#E5E7EB',
     marginVertical: 16,
   },
-  footerSection: {
+  logoutButton: {
+    borderRadius: 8,
+    color: '#333',
+    textAlign: 'center',
+    backgroundColor: '#DB3436',
     padding: 16,
+    marginTop: '95%',
   },
   footerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
+    color: '#FFF',
     textAlign: 'center',
   },
 });

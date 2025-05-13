@@ -18,41 +18,47 @@ export default function Profile() {
     <View style={styles.container}>
       <View style={styles.profileSection}>
         <Text style={styles.userName}>{userData.name}</Text>
-        
+
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Meta diária
-            <FontAwesome name="pencil" size={16} color="black" />
-
-            </Text>
-            <Text style={styles.statValue}>{userData.dailyGoal}ml</Text>
-          </View>
-          
-          <View style={styles.divider} />
-          
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>
-              Total ingerido 
-              <FontAwesome name="pencil" size={16} color="black" />
-
-            </Text>
             <Pressable
-              onPress={() => {alert('Total ingerido clicado!');}}
-              style={styles.pressableButton}
+              onPress={() => { alert('Meta diária clicada!'); }}
             >
-              <Text style={styles.statValue}>
-                {userData.totalConsumed}ml 
+              <Text style={styles.statLabel}>
+                Meta diária
+                <FontAwesome name="pencil" size={16} color="black" style={{ marginLeft: 8 }} />
+
               </Text>
             </Pressable>
+
+            <Text style={styles.statValue}>{userData.dailyGoal}ml</Text>
+          </View>
+
+          <View style={styles.divider} />
+
+          <View style={styles.statItem}>
+            <Pressable
+              onPress={() => { alert('Total ingerido clicado!'); }}
+            >
+              <Text style={styles.statLabel}>
+                Total ingerido
+                <FontAwesome name="pencil" size={16} color="black" style={{ marginLeft: 8 }} />
+
+              </Text>
+            </Pressable>
+
+            <Text style={styles.statValue}>
+              {userData.totalConsumed}ml
+            </Text>
           </View>
         </View>
       </View>
 
       <View style={styles.divider} />
 
-      <View style={styles.footerSection}>
+      <Pressable style={styles.logoutButton}>
         <Text style={styles.footerTitle}>Sair</Text>
-      </View>
+      </Pressable>
     </View>
   );
 }
