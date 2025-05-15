@@ -1,10 +1,53 @@
-import { View, Text, TextInput, Pressable, StyleSheet, Alert } from 'react-native';
-import { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { View, Text, TextInput, Pressable, StyleSheet, Alert, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
+import NotificationService from '../../../../services/NotificationService';
+import * as Notifications from 'expo-notifications';
+import { useWater } from '@/context/WaterContext';
+// import * as Device from 'expo-device';
 
 export default function RegisterSip() {
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
+  const {
+    addConsumption,
+    dailyGoal,
+    consumedToday,
+    addPoints,
+    lastNotificationTime,
+    setLastNotificationTime
+  } = useWater();
+
+
+  /* useEffect(() => {
+    NotificationService.scheduleDailyNotifications([8, 10, 12, 14, 16, 18, 20]);
+
+    const subscription = Notifications.addNotificationReceivedListener(() => {
+      setLastNotificationTime(new Date());
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [setLastNotificationTime]); */
+
+  useEffect(() => {
+    const setupNotifications = async () => {
+      await Notifications.cancelAllScheduledNotificationsAsync();
+      await NotificationService.scheduleTestNotifications();
+    };
+
+    setupNotifications();
+
+    const subscription = Notifications.addNotificationReceivedListener(() => {
+      setLastNotificationTime(new Date());
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [setLastNotificationTime]);
+
 
   const handleRegister = () => {
     if (!inputValue || isNaN(Number(inputValue))) {
@@ -12,16 +55,26 @@ export default function RegisterSip() {
       return;
     }
 
-    /* dps salvar na api */
-    
-    Alert.alert(`Parabéns`,`Você registrou ${inputValue}ml!`);
-    router.push('/app/(tabs)/home'); 
+    const amount = Number(inputValue);
+    addConsumption(amount);
+
+    const now = new Date();
+    if (lastNotificationTime && (now - lastNotificationTime) <= 5 * 60 * 1000) {
+      addPoints(10);
+      Alert.alert(`Parabéns!`, `Você registrou ${amount}ml e ganhou 10 pontos por ser rápido!`);
+    } else {
+      addPoints(5);
+      Alert.alert(`Boa!`, `Você registrou ${amount}ml e ganhou 5 pontos!`);
+    }
+
+    router.push('/app/(tabs)/home');
   };
+
+  const remaining = dailyGoal - consumedToday;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Quanto você bebeu?</Text>
-
       <TextInput
         style={styles.input}
         placeholder="0 ml"
@@ -29,13 +82,11 @@ export default function RegisterSip() {
         value={inputValue}
         onChangeText={setInputValue}
       />
-
       <Pressable style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Registrar gole</Text>
       </Pressable>
-
       <Text style={styles.footerText}>
-        Faltam <Text style={styles.highlight}>2000ml</Text> para bater a meta diária!
+        Faltam <Text style={styles.highlight}>{remaining > 0 ? remaining : 0}ml</Text> para bater a meta diária!
       </Text>
     </View>
   );

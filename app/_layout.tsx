@@ -1,33 +1,15 @@
 import { Slot } from "expo-router";
 import { View, StyleSheet, ImageBackground, useWindowDimensions } from "react-native";
+import {WaterProvider} from "../context/WaterContext";
 
-export default function Layout() {
-    /* return (
-      <ImageBackground 
-        style={[
-          styles.container,
-          {
-            height: useWindowDimensions().height,
-            width: useWindowDimensions().width + 20
-          }
-        ]} 
-        source={require('./../assets/images/bg.png')}
-        resizeMode="contain"
-        >
-        <Slot />
-      </ImageBackground>
-    ); */
-    return (
-      <View 
-        style={
-          styles.container
-        }
-        >
-        <Slot />
-      </View>
-    );
-  }
-  
+export default function RootLayout() {
+  return (
+    <WaterProvider>
+      <Slot />
+    </WaterProvider>
+  );
+}
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,

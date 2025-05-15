@@ -55,7 +55,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#DB3436',
     padding: 16,
-    marginTop: '95%',
+    marginTop: 100,
   },
   footerTitle: {
     fontSize: 18,
@@ -63,4 +63,27 @@ export default StyleSheet.create({
     color: '#FFF',
     textAlign: 'center',
   },
+  editContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 8,
+    minWidth: 100,
+    marginRight: 8,
+  },
+  saveButton: {
+    backgroundColor: '#4CAF50',
+    padding: 8,
+    borderRadius: 5,
+    marginRight: 8,
+  },
+  cancelButton: {
+    backgroundColor: '#f44336',
+    padding: 8,
+    borderRadius: 5,
+  },  
 });

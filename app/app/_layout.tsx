@@ -2,9 +2,24 @@ import { Tabs } from 'expo-router';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import  {WaterProvider}  from '../../context/WaterContext';
+
+
+
+/* // Permitir que notificações apareçam mesmo com o app aberto
+import * as Notifications from 'expo-notifications';
+Notifications.setNotificationHandler({
+  handleNotification: async () => Promise.resolve({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+ */
 
 export default function TabLayout() {
   return (
+    <WaterProvider>
     <Tabs
       screenOptions={{
       headerShown: true,
@@ -53,5 +68,6 @@ export default function TabLayout() {
       }}
       />
     </Tabs>
+    </WaterProvider>
   );
 }

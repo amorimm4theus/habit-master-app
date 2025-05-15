@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.amorim_math3us.habitmasterapp"
     },
     "web": {
       "bundler": "metro",
@@ -35,6 +36,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "aa6bc240-eda4-44a8-954d-d4cd4b709461"
+      }
+    },
+    "owner": "amorim_math3us"
   }
 }
