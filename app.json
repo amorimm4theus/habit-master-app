@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "habit-master-app",
-    "slug": "habit-master-app",
+    "slug": "upx5",
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "myapp",
@@ -28,7 +28,7 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff",
-          "image": null
+          "image": "./assets/images/splash.png"
         }
       ]
     ],
@@ -38,9 +38,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "aa6bc240-eda4-44a8-954d-d4cd4b709461"
+        "projectId": "0f040c83-b9c6-423e-a420-c258235bea52"
       }
     },
-    "owner": "amorim_math3us"
+    "owner": "silvakety555"
   }
 }
