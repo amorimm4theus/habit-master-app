@@ -1,8 +1,33 @@
+import { useEffect } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
-import { Link } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
+import * as Notifications from 'expo-notifications';
+import { useWater } from '@/context/WaterContext';
 import styles from './styles';
 
 export default function Welcome() {
+  const router = useRouter();
+  const { isLoggedIn } = useWater();
+
+  useEffect(() => {
+    const checkRedirect = async () => {
+      const lastNotification = await Notifications.getLastNotificationResponseAsync();
+
+      if (lastNotification) {
+        // App foi aberto por notificação
+        router.replace('/app/(tabs)/home/registerSip');
+        return;
+      }
+
+      if (isLoggedIn) {
+        // Usuário já está logado
+        router.replace('/app/(tabs)/home');
+      }
+    };
+
+    checkRedirect();
+  }, [isLoggedIn]);
+
   return (
     <View style={styles.container}>
       <Image
@@ -27,5 +52,3 @@ export default function Welcome() {
     </View>
   );
 }
-
-

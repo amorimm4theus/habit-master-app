@@ -6,16 +6,19 @@ import  {WaterProvider}  from '../../context/WaterContext';
 
 
 
-/* // Permitir que notificações apareçam mesmo com o app aberto
 import * as Notifications from 'expo-notifications';
+
+// Permitir que notificações apareçam com o app aberto
 Notifications.setNotificationHandler({
-  handleNotification: async () => Promise.resolve({
+  handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
   }),
 });
- */
+
 
 export default function TabLayout() {
   return (

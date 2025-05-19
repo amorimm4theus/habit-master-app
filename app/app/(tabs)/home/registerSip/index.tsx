@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, StyleSheet, Alert, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import NotificationService from '../../../../services/NotificationService';
 import * as Notifications from 'expo-notifications';
 import { useWater } from '@/context/WaterContext';
-// import * as Device from 'expo-device';
 
 export default function RegisterSip() {
   const [inputValue, setInputValue] = useState('');
@@ -18,20 +17,18 @@ export default function RegisterSip() {
     setLastNotificationTime
   } = useWater();
 
-
-  /* useEffect(() => {
-    NotificationService.scheduleDailyNotifications([8, 10, 12, 14, 16, 18, 20]);
-
-    const subscription = Notifications.addNotificationReceivedListener(() => {
-      setLastNotificationTime(new Date());
+  useEffect(() => {
+    // Configura como a notificação se comporta com o app em primeiro plano
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+        shouldShowBanner: Platform.OS === 'ios',
+        shouldShowList: Platform.OS === 'ios',
+      }),
     });
 
-    return () => {
-      subscription.remove();
-    };
-  }, [setLastNotificationTime]); */
-
-  useEffect(() => {
     const setupNotifications = async () => {
       await Notifications.cancelAllScheduledNotificationsAsync();
       await NotificationService.scheduleTestNotifications();
@@ -47,7 +44,6 @@ export default function RegisterSip() {
       subscription.remove();
     };
   }, [setLastNotificationTime]);
-
 
   const handleRegister = () => {
     if (!inputValue || isNaN(Number(inputValue))) {

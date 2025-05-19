@@ -3,6 +3,7 @@ import { View, Text, Pressable, TextInput, TouchableOpacity } from 'react-native
 import { useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import styles from '../../../styles/profile';
+import NotificationService from '@/app/services/NotificationService';
 
 export default function Profile() {
   const router = useRouter();
@@ -78,11 +79,11 @@ export default function Profile() {
             >
               <Text style={styles.statLabel}>
                 Total ingerido
-                <FontAwesome name="pencil" size={16} color="black" style={{ marginLeft: 8 }} />
+                {/* <FontAwesome name="pencil" size={16} color="black" style={{ marginLeft: 8 }} /> */}
               </Text>
             </Pressable>
 
-            {editMode === 'totalConsumed' ? (
+            {/* editMode === 'totalConsumed' */ false ? (
               <View style={styles.editContainer}>
                 <TextInput
                   style={styles.input}
@@ -107,7 +108,13 @@ export default function Profile() {
 
       <View style={styles.divider} />
 
-      <Pressable style={styles.logoutButton}>
+      <Pressable style={styles.logoutButton}
+        onPress={() => {
+          // Aqui você pode adicionar a lógica de logout
+          console.log('Logout');
+           NotificationService.scheduleTestNotification()
+          // router.push('/auth/login');
+        }}>
         <Text style={styles.footerTitle}>Sair</Text>
       </Pressable>
     </View>
