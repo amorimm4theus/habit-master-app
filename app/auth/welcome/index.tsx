@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import { useRouter, Link } from 'expo-router';
 import * as Notifications from 'expo-notifications';
@@ -7,26 +7,36 @@ import styles from './styles';
 
 export default function Welcome() {
   const router = useRouter();
-  const { isLoggedIn } = useWater();
-
+  const { isLoggedIn, setLastNotificationTime } = useWater();
+  const [initialCheckDone, setInitialCheckDone] = useState(false);
   useEffect(() => {
     const checkRedirect = async () => {
-      const lastNotification = await Notifications.getLastNotificationResponseAsync();
+      const notificationResponse = await Notifications.getLastNotificationResponseAsync();
 
-      if (lastNotification) {
-        // App foi aberto por notificação
-        router.replace('/app/(tabs)/home/registerSip');
+      if (notificationResponse) {
+        // Salva a hora em que a notificação foi tocada
+        setLastNotificationTime(new Date());
+
+        if (isLoggedIn) {
+          router.replace('/app/(tabs)/home/registerSip');
+        } else {
+          console.log('Usuário precisa logar primeiro, mas veio de notificação');
+        }
+        setInitialCheckDone(true);
         return;
       }
 
       if (isLoggedIn) {
-        // Usuário já está logado
         router.replace('/app/(tabs)/home');
       }
+
+      setInitialCheckDone(true);
     };
 
     checkRedirect();
   }, [isLoggedIn]);
+
+  if (!initialCheckDone) return null;
 
   return (
     <View style={styles.container}>

@@ -19,13 +19,23 @@ class NotificationService {
   }
 
   async requestPermission() {
-    const { status } = await Notifications.requestPermissionsAsync();
-    return status === 'granted';
+    const settings = await Notifications.getPermissionsAsync();
+
+    if (settings.status !== 'granted') {
+      const newSettings = await Notifications.requestPermissionsAsync();
+      return newSettings.status === 'granted';
+    }
+
+    return true;
   }
 
   async scheduleRecurringNotification(intervalMin: number) {
     const granted = await this.requestPermission();
-    if (!granted) return;
+
+    if (!granted) {
+      console.log('Permissão de notificação negada');
+      return;
+    }
 
     await Notifications.cancelAllScheduledNotificationsAsync(); // evitar duplicação
 

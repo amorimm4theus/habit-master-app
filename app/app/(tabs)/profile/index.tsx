@@ -4,9 +4,11 @@ import { useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import styles from '../../../styles/profile';
 import NotificationService from '@/app/services/NotificationService';
-
+import { useWater } from '@/context/WaterContext';
 export default function Profile() {
   const router = useRouter();
+  const { setIsLoggedIn } = useWater();
+
   const [editMode, setEditMode] = useState(null);
   const [userData, setUserData] = useState({
     name: 'NomeUsuario',
@@ -110,10 +112,8 @@ export default function Profile() {
 
       <Pressable style={styles.logoutButton}
         onPress={() => {
-          // Aqui você pode adicionar a lógica de logout
-          console.log('Logout');
-           NotificationService.scheduleTestNotification()
-          // router.push('/auth/login');
+          setIsLoggedIn(false);
+          router.push('/auth/login');
         }}>
         <Text style={styles.footerTitle}>Sair</Text>
       </Pressable>

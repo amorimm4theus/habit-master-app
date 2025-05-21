@@ -18,7 +18,7 @@ export default function RegisterSip() {
   } = useWater();
 
   useEffect(() => {
-    // Configura como a notificação se comporta com o app em primeiro plano
+    // Configura comportamento das notificações em foreground
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
@@ -31,7 +31,7 @@ export default function RegisterSip() {
 
     const setupNotifications = async () => {
       await Notifications.cancelAllScheduledNotificationsAsync();
-      await NotificationService.scheduleTestNotifications();
+      await NotificationService.scheduleTestNotification();
     };
 
     setupNotifications();
@@ -55,12 +55,14 @@ export default function RegisterSip() {
     addConsumption(amount);
 
     const now = new Date();
-    if (lastNotificationTime && (now - lastNotificationTime) <= 5 * 60 * 1000) {
+    const FIVE_MINUTES = 5 * 60 * 1000;
+
+    if (lastNotificationTime && now.getTime() - lastNotificationTime.getTime() <= FIVE_MINUTES) {
       addPoints(10);
-      Alert.alert(`Parabéns!`, `Você registrou ${amount}ml e ganhou 10 pontos por ser rápido!`);
+      Alert.alert('Parabéns!', `Você registrou ${amount}ml e ganhou 10 pontos por ser rápido!`);
     } else {
       addPoints(5);
-      Alert.alert(`Boa!`, `Você registrou ${amount}ml e ganhou 5 pontos!`);
+      Alert.alert('Boa!', `Você registrou ${amount}ml e ganhou 5 pontos!`);
     }
 
     router.push('/app/(tabs)/home');

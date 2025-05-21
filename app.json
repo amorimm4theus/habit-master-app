@@ -11,6 +11,10 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [
+        "NOTIFICATIONS",
+        "FOREGROUND_SERVICE"
+      ],
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
@@ -21,6 +25,7 @@
       "output": "static"
     },
     "plugins": [
+      "expo-notifications",
       "expo-router",
       [
         "expo-splash-screen",
@@ -30,7 +35,8 @@
           "backgroundColor": "#ffffff",
           "image": "./assets/images/splash.png"
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
@@ -41,6 +47,9 @@
         "projectId": "0f040c83-b9c6-423e-a420-c258235bea52"
       }
     },
-    "owner": "silvakety555"
+    "owner": "silvakety555",
+    "permissions": [
+      "NOTIFICATIONS"
+    ]
   }
 }

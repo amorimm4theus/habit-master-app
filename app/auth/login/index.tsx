@@ -3,9 +3,11 @@ import { Link, useRouter } from 'expo-router';
 import { useState } from 'react';
 import styles from './styles';
 import NotificationService from '@/app/services/NotificationService';
+import { useWater } from '@/context/WaterContext';
 
 export default function Login() {
-  const router = useRouter(); // Para navegar para a próxima tela
+  const router = useRouter(); 
+  const { isLoggedIn,setIsLoggedIn } = useWater();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -15,11 +17,10 @@ export default function Login() {
     const validEmail = 'emagoediv@gmail.com';
     const validPassword = 'Matheuss0';
 
-    console.log(email == validEmail);
-    console.log(validPassword == password);
     console.log(email, password);
     if (email === validEmail && password === validPassword) {
       await NotificationService.scheduleRecurringNotification(2);
+      setIsLoggedIn(true);
       router.push('/app/(tabs)/home');
     } else {
       Alert.alert('Erro', 'Credenciais inválidas. Tente novamente.');
